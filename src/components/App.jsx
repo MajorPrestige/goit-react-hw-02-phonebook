@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid';
 import ContactsForm from './ContactsForm/ContactsForm';
 import ContactLists from './ContactsList/ContactList';
 import ContactsSearch from './ContactsSearch/ContactsSearch';
-import { element } from 'prop-types';
 export class App extends Component {
   state = {
     contacts: [
