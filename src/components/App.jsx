@@ -60,11 +60,14 @@ export class App extends Component {
     if (contactsToDelete.length === 0) {
       return alert('Noone contact was checked');
     }
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(
-        contact => !contactsToDelete.includes(contact.id)
-      ),
-    }));
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(
+          contact => !contactsToDelete.includes(contact.id)
+        ),
+        contactsToDelete: [],
+      };
+    });
   };
 
   filterContact = e => {
