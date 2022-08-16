@@ -57,6 +57,9 @@ export class App extends Component {
 
   deleteAllContact = () => {
     const { contactsToDelete } = this.state;
+    if (contactsToDelete.length === 0) {
+      return alert('Noone contact was checked');
+    }
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(
         contact => !contactsToDelete.includes(contact.id)
@@ -69,7 +72,7 @@ export class App extends Component {
   };
 
   render() {
-    const { contacts, filter } = this.state;
+    const { contacts, filter, contactsToDelete } = this.state;
 
     const filterNormalized = filter.toLowerCase();
     const filterContacts = contacts.filter(contact =>
@@ -84,6 +87,7 @@ export class App extends Component {
           <h2>Contacts</h2>
           <ContactsSearch value={filter} filter={this.filterContact} />
           <ContactLists
+            contactsToDelete={contactsToDelete}
             contacts={filterContacts}
             onDeleteClick={this.deleteContact}
             onCheckboxChange={this.onCheckboxChange}

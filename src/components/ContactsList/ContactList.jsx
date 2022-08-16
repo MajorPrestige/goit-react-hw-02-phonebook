@@ -1,5 +1,5 @@
 import ContactsItem from 'components/ContactsItem/ContactsItem';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import s from './ContactList.module.css';
 
 const ContactLists = ({
@@ -7,6 +7,7 @@ const ContactLists = ({
   onDeleteClick,
   onCheckboxChange,
   deleteAllContact,
+  contactsToDelete,
 }) => {
   return (
     <ul className={s.list}>
@@ -20,9 +21,11 @@ const ContactLists = ({
           onCheckboxChange={onCheckboxChange}
         />
       ))}
-      <button onClick={deleteAllContact} type="button">
-        Delete checked
-      </button>
+      {deleteAllContact && (
+        <button className={s.btn} onClick={deleteAllContact} type="button">
+          Delete checked
+        </button>
+      )}
     </ul>
   );
 };
@@ -32,6 +35,8 @@ export default ContactLists;
 ContactLists.propTypes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
     })
   ),
