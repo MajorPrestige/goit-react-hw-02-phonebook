@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
+import s from './ContactsSearch.module.css';
 
 const ContactsSearch = ({ filter, value }) => {
   return (
-    <label>
+    <label className={s.label}>
       Find contacts by name
-      <input onChange={filter} value={value} type="text" />
+      <input className={s.input} onChange={filter} value={value} type="text" />
     </label>
   );
 };

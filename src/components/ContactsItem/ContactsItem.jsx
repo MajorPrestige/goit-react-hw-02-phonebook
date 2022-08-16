@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import s from './ContactsItem.module.css';
 
 const ContactsItem = ({
   name,
@@ -8,7 +9,7 @@ const ContactsItem = ({
   onCheckboxChange,
 }) => {
   return (
-    <li>
+    <li className={s.item}>
       <label>
         <input type="checkbox" name={id} onChange={onCheckboxChange} />
       </label>
