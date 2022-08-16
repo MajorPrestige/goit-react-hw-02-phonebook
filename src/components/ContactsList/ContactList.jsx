@@ -21,7 +21,7 @@ const ContactLists = ({
           onCheckboxChange={onCheckboxChange}
         />
       ))}
-      {deleteAllContact && (
+      {contactsToDelete && (
         <button className={s.btn} onClick={deleteAllContact} type="button">
           Delete checked
         </button>
