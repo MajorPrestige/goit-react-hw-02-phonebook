@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 
 class ContactsForm extends Component {
   state = {
@@ -6,14 +7,24 @@ class ContactsForm extends Component {
     number: '',
   };
 
+  inputNameId = nanoid();
+  inputNumberId = nanoid();
+
   onInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   onFormSubmit = e => {
     e.preventDefault();
-
     this.props.onSubmit(this.state);
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({
+      name: '',
+      number: '',
+    });
   };
 
   render() {
@@ -21,7 +32,7 @@ class ContactsForm extends Component {
 
     return (
       <form onSubmit={this.onFormSubmit}>
-        <label>
+        <label htmlFor={this.inputNameId}>
           Name
           <input
             type="text"
@@ -31,10 +42,11 @@ class ContactsForm extends Component {
             required
             value={name}
             onChange={this.onInputChange}
+            id={this.inputNameId}
           />
         </label>
 
-        <label>
+        <label htmlFor={this.inputNumberId}>
           Number
           <input
             type="tel"
@@ -44,6 +56,7 @@ class ContactsForm extends Component {
             required
             value={number}
             onChange={this.onInputChange}
+            id={this.inputNumberId}
           />
         </label>
         <button type="submit">Add contact</button>
