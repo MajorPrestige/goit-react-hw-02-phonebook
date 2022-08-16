@@ -21,9 +21,17 @@ export class App extends Component {
       number,
     };
 
-    this.setState(prevState => ({
-      contacts: [newContact, ...prevState.contacts],
-    }));
+    this.setState(({ contacts }) => {
+      const duplicateContact = contacts.find(
+        contact => contact.name === newContact.name
+      );
+
+      if (duplicateContact?.name === newContact.name) {
+        return alert(`${newContact.name} is already in contacts`);
+      }
+
+      return { contacts: [newContact, ...contacts] };
+    });
   };
 
   deleteContact = contactId => {
@@ -32,18 +40,26 @@ export class App extends Component {
     }));
   };
 
+  onCheckboxChange = e => {};
+
+  deleteAllContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
   filterContact = e => {
-    const { contacts, filter } = this.state;
     this.setState({ filter: e.target.value });
-    contacts.filter(contact => {
-      if (contact.name.includes(filter)) {
-        this.setState({ contact: { filter } });
-      }
-    });
   };
 
   render() {
     const { contacts, filter } = this.state;
+
+    const filterNormalized = filter.toLowerCase();
+    const filterContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterNormalized)
+    );
+
     return (
       <>
         <div>
@@ -52,8 +68,10 @@ export class App extends Component {
           <h2>Contacts</h2>
           <ContactsSearch value={filter} filter={this.filterContact} />
           <ContactLists
-            contacts={contacts}
+            contacts={filterContacts}
             onDeleteClick={this.deleteContact}
+            onCheckboxChange={this.onCheckboxChange}
+            deleteAllContact={this.deleteAllContact}
           />
         </div>
       </>

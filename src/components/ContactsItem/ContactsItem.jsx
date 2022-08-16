@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types';
 
-const ContactsItem = ({ name, number, id, onDeleteClick }) => {
+const ContactsItem = ({
+  name,
+  number,
+  id,
+  onDeleteClick,
+  onCheckboxChange,
+}) => {
   return (
     <li>
+      <label>
+        <input type="checkbox" name={id} onChange={onCheckboxChange} />
+      </label>
       <p>
         {name}: {number}
       </p>

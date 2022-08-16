@@ -1,7 +1,12 @@
 import ContactsItem from 'components/ContactsItem/ContactsItem';
 import PropTypes from 'prop-types';
 
-const ContactLists = ({ contacts, onDeleteClick }) => {
+const ContactLists = ({
+  contacts,
+  onDeleteClick,
+  onCheckboxChange,
+  deleteAllContact,
+}) => {
   return (
     <ul>
       {contacts.map(({ name, number, id }) => (
@@ -11,8 +16,12 @@ const ContactLists = ({ contacts, onDeleteClick }) => {
           number={number}
           id={id}
           onDeleteClick={onDeleteClick}
+          onCheckboxChange={onCheckboxChange}
         />
       ))}
+      <button onClick={deleteAllContact} type="button">
+        Delete checked
+      </button>
     </ul>
   );
 };
