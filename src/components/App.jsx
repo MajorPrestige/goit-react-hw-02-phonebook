@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import ContactsForm from './ContactsForm/ContactsForm';
 import ContactLists from './ContactsList/ContactList';
 import ContactsSearch from './ContactsSearch/ContactsSearch';
+import { element } from 'prop-types';
 export class App extends Component {
   state = {
     contacts: [
@@ -12,6 +13,7 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    contactsToDelete: [],
   };
 
   formSubmitHandler = ({ name, number }) => {
@@ -34,17 +36,37 @@ export class App extends Component {
     });
   };
 
+  onCheckboxChange = e => {
+    const contactId = e.target.name;
+    if (this.state.contactsToDelete.includes(contactId)) {
+      this.setState(prevState => {
+        return {
+          contactsToDelete: [
+            ...prevState.contactsToDelete.filter(el => el !== contactId),
+          ],
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        return {
+          contactsToDelete: [...prevState.contactsToDelete, e.target.name],
+        };
+      });
+    }
+  };
+
   deleteContact = contactId => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
 
-  onCheckboxChange = e => {};
-
-  deleteAllContact = contactId => {
+  deleteAllContact = () => {
+    const { contactsToDelete } = this.state;
     this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+      contacts: prevState.contacts.filter(
+        contact => !contactsToDelete.includes(contact.id)
+      ),
     }));
   };
 
