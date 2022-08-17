@@ -75,7 +75,7 @@ export class App extends Component {
   };
 
   render() {
-    const { contacts, filter, contactsToDelete } = this.state;
+    const { contacts, filter } = this.state;
 
     const filterNormalized = filter.toLowerCase();
     const filterContacts = contacts.filter(contact =>
