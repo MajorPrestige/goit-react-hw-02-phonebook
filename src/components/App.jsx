@@ -90,7 +90,6 @@ export class App extends Component {
           <h2>Contacts</h2>
           <ContactsSearch value={filter} filter={this.filterContact} />
           <ContactLists
-            contactsToDelete={contactsToDelete}
             contacts={filterContacts}
             onDeleteClick={this.deleteContact}
             onCheckboxChange={this.onCheckboxChange}
